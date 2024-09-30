@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,6 +60,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String button_string = "test";
 
+  List words = [];
+
+    // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/500-words.json');
+    final data = await json.decode(response);
+    setState(() {
+      words = data;
+      button_string = words[0];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -100,10 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             (
               onPressed: ()
               {
-                setState(()
-                {
-                  button_string = "Hello";
-                });
+                readJson();
               }, 
               child: Text("Generate Word")),
 
