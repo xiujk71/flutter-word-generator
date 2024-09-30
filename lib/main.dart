@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
+
+import 'dart:convert';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -68,8 +69,22 @@ class _MyHomePageState extends State<MyHomePage> {
     final data = await json.decode(response);
     setState(() {
       words = data;
-      button_string = words[0];
     });
+  }
+
+  void generate_word()
+  {
+    int random_number = Random().nextInt(100);
+    String new_word = words[random_number];
+    setState(() {
+      button_string = new_word;
+    });
+  }
+
+  void initState()
+  {
+    super.initState();
+    readJson();
   }
 
   @override
@@ -115,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
             (
               onPressed: ()
               {
-                readJson();
+                generate_word();
               }, 
               child: Text("Generate Word")),
 
