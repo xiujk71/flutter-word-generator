@@ -15,7 +15,11 @@ class MainScreen extends StatefulWidget
 
 class _MainScreen extends State<MainScreen>
 {
-  String button_string = "test";
+  String button_string = "Click to Generate Words";
+  bool? select_verb = false;
+  bool? select_noun = false;
+  bool? select_adjective = false;
+
   List words = [];
 
     // Fetch content from the json file
@@ -80,14 +84,60 @@ class _MainScreen extends State<MainScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>
           [
-            Text(button_string),
             ElevatedButton
             (
               onPressed: ()
               {
                 generate_word();
               }, 
-              child: Text("Generate Word")),
+              child: Text(button_string)
+            ),
+            Row
+            (
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: 
+              [
+                Checkbox
+                (
+                  value: select_verb, 
+                  onChanged: (bool? to_select_verb)
+                  {
+                    setState(()
+                    {
+                      select_verb = to_select_verb;
+                      print("select_verb: $select_verb");
+                    });
+                  }
+                ),
+                Text("verb"),
+                Checkbox
+                (
+                  value: select_noun, 
+                  onChanged: (bool? to_select_noun)
+                  {
+                    setState(()
+                    {
+                      select_noun = to_select_noun;
+                      print("select_noun: $select_noun");
+                    });
+                  }
+                ),
+                Text("noun"),
+                Checkbox
+                (
+                  value: select_adjective, 
+                  onChanged: (bool? to_select_adjective)
+                  {
+                    setState(()
+                    {
+                      select_adjective = to_select_adjective;
+                      print("select_adjective: $select_adjective");
+                    });
+                  }
+                ),
+                Text("select_adjective"),
+              ],
+            ),
 
           ],
         ),
