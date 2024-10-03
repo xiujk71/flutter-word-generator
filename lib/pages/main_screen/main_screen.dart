@@ -9,6 +9,7 @@ class MainScreen extends StatefulWidget
   const MainScreen({super.key, required this.title});
 
   final String title;
+
   @override
   State<MainScreen> createState() => _MainScreen();
 }
@@ -16,9 +17,13 @@ class MainScreen extends StatefulWidget
 class _MainScreen extends State<MainScreen>
 {
   String button_string = "Click to Generate Words";
-  bool? select_verb = false;
-  bool? select_noun = false;
-  bool? select_adjective = false;
+
+  Map<String, bool?> bool_maps =
+  {
+    "verb": false,
+    "noun": false,
+    "adjective": false,
+  };
 
   List words = [];
 
@@ -44,6 +49,33 @@ class _MainScreen extends State<MainScreen>
   {
     super.initState();
     readJson();
+  }
+
+  Widget create_checkbox(String select_name)
+  {
+    return Row
+    (
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: 
+      [
+        Checkbox
+        (
+          value: bool_maps[select_name], 
+          onChanged: (bool? to_select_type)
+          {
+            setState(()
+            {
+              bool_maps[select_name] = to_select_type;
+
+              String print_select_name = select_name;
+              bool? print_select_type = bool_maps[select_name];
+              print("$print_select_name: $print_select_type");
+            });
+          }
+        ),
+        Text(select_name),
+      ]
+    );
   }
 
   @override
@@ -97,45 +129,9 @@ class _MainScreen extends State<MainScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: 
               [
-                Checkbox
-                (
-                  value: select_verb, 
-                  onChanged: (bool? to_select_verb)
-                  {
-                    setState(()
-                    {
-                      select_verb = to_select_verb;
-                      print("select_verb: $select_verb");
-                    });
-                  }
-                ),
-                Text("verb"),
-                Checkbox
-                (
-                  value: select_noun, 
-                  onChanged: (bool? to_select_noun)
-                  {
-                    setState(()
-                    {
-                      select_noun = to_select_noun;
-                      print("select_noun: $select_noun");
-                    });
-                  }
-                ),
-                Text("noun"),
-                Checkbox
-                (
-                  value: select_adjective, 
-                  onChanged: (bool? to_select_adjective)
-                  {
-                    setState(()
-                    {
-                      select_adjective = to_select_adjective;
-                      print("select_adjective: $select_adjective");
-                    });
-                  }
-                ),
-                Text("select_adjective"),
+                create_checkbox("verb"),
+                create_checkbox("noun"),
+                create_checkbox("adjective"),
               ],
             ),
 
