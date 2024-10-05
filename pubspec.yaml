@@ -61,6 +61,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/500-words.json
+    - assets/300-verbs.json
+    - assets/689-nouns.json
+    - assets/493-adjectives.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
